@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="Inheritance in JS">
+		<meta name="author" content="Andrew Petrov">
+		<title>Inheritance in JS</title>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/black.css">
+    <link rel="stylesheet" href="css/zenburn.css">
+    <link rel="stylesheet" href="css/overrides.css">
+    <link rel="stylesheet" href="css/paper.css">
+		<script>
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match(/print-pdf/gi) ? 'css/pdf.css' : 'css/paper.css';
+			document.getElementsByTagName('head')[0].appendChild(link);
+		</script>
+	</head>
+	<body>
+    <div class="reveal">
+      <div class="slides">
+<!-- 1 -->
+        <section>
+          <h2>Inheritance in JavaScript. ES6 classes</h2>
+          <p><br>
+            <small>by <a target="_blank" href="https://github.com/samo-war">Andrew Petrov</a></small>
+          </p>
+        </section>
+<!-- 2 -->
+        <section class="stack present" style="top: 0px; display: block;">
+<!-- 2.1 -->
+          <section class="future" aria-hidden="true" hidden="" style="top: 167px; display: block;">
+            <h2>What is an <span class="-highlight">object</span>?</h2>
+            <p class="fragment visible current-fragment" data-fragment-index="0">- unordered dynamic collection of properties (key-value pairs)</p>
+            <ul class="fragment" style="list-style: none;" data-fragment-index="1">
+              <li><span class="-highlight">key</span> - unique string</li>
+              <li><span class="-highlight">value</span> - primitive, function, object</li>
+            </ul>
+          </section>
+<!-- 2.2 -->
+          <section class="future" aria-hidden="true" hidden="" style="top: 350px; display: none;">
+            <h2>What is an <span class="-highlight">object</span>?</h2>
+            <p>- everything is an <span class="-highlight">object</span></p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs php">
+<span class="hljs-keyword">var</span> obj = { prop0: <span class="hljs-number">0</span> };
+obj.prop1 = <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">var</span> func = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{};
+func.prop1 = <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>];
+arr.prop1 = <span class="hljs-number">1</span>;
+            </code></pre>
+          </section>
+<!-- 2.3 -->
+          <section style="top: 177.5px; display: block;">
+            <h2>How to create an <span class="-highlight">object</span>?</h2>
+            <ul>
+              <li class="fragment" data-fragment-index="0">object literals</li>
+              <li class="fragment" data-fragment-index="1">functions</li>
+              <li class="fragment" data-fragment-index="2">ES6 <span class="-highlight">classes</span></li>
+            </ul>
+          </section>
+<!-- 2.4 -->
+          <section class="present" style="top: 0px; display: block;">
+            <h2>What is a <span class="-highlight">class</span>?</h2>
+					  <p class="fragment visible current-fragment" data-fragment-index="0"><span class="-highlight">Class</span> is a schema</p>
+            <img class="fragment visible current-fragment" data-fragment-index="0" style="width: 100%" src="img/drawing.png">
+          </section>
+<!-- 2.5 -->
+          <section class="future" aria-hidden="true" hidden="" style="top: 12px; display: block;">
+            <h2>What is a <span class="-highlight">class</span>?</h2>
+            <p class="fragment" data-fragment-index="0"><span class="-highlight">Class</span> is a function for creating a set of objects - 'real' <span class="-highlight">instances</span> of this class.</p>
+            <img class="fragment" data-fragment-index="0" style="width: 70%" src="img/phones.png">
+          </section>
+        </section>
+<!-- 3 -->
+        <section class="stack present" style="top: 0px; display: block;">
+<!-- 3.1 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-class"><span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span></span>{
+
+}
+            </code></pre>
+          </section>
+<!-- 3.2 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor</span>() {
+
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>();
+            </code></pre>
+          </section>
+<!-- 3.3 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>(<span class="hljs-string">'Andrew'</span>);
+iphone.owner <span class="hljs-comment">// Andrew</span>
+            </code></pre>
+          </section>
+<!-- 3.4 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+
+  siriSay(message) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Siri: "'</span> + message + <span class="hljs-string">', '</span> + <span class="hljs-keyword">this</span>.owner + <span class="hljs-string">'!"'</span>);
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>(<span class="hljs-string">'Andrew'</span>);
+iphone.siriSay(<span class="hljs-string">'Hello'</span>); <span class="hljs-comment">// Siri: "Hello, Andrew!"</span>
+            </code></pre>
+          </section>
+<!-- 3.5 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor</span>(owner = Iphone.getDefaultOwner()) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">getDefaultOwner</span>() </span>{
+    <span class="hljs-keyword">return </span><span class="hljs-string">'Apple'</span>;
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>();
+iphone.owner <span class="hljs-comment">// Apple</span>
+iphone.getDefaultOwner() <span class="hljs-comment">// TypeError</span>
+            </code></pre>
+          </section>
+<!-- 3.6 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">ES6</span> classes</h2>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.assembledIn = <span class="hljs-string">'USA'</span>;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">set</span> <span class="hljs-title">newAssembledIn</span>(value) </span>{
+    <span class="hljs-keyword">this</span>.assembledIn = value;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">get</span> <span class="hljs-title">aboutPhone</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return </span><span class="hljs-string">`Assembled in </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.assembledIn}</span><span class="hljs-string">.`</span>;
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>();
+iphone.aboutPhone <span class="hljs-comment">// Assembled in USA.</span>
+iphone.newAssembledIn = <span class="hljs-string">'China'</span>;
+iphone.aboutPhone <span class="hljs-comment">// Assembled in China.</span>
+            </code></pre>
+          </section>
+        </section>
+<!-- 4 -->
+        <section class="stack present" style="top: 0px; display: block;">
+<!-- 4.1 -->
+          <section style="top: 350px; display: none;">
+            <h2><span class="-highlight">Inheritance</span></h2>
+            <ul>
+              <h3>
+              <li class="fragment" data-fragment-index="0"><span class="-highlight">Classical</span> (C++, C#, Java)</li>
+              </h3>
+              <p class="fragment" data-fragment-index="1">- classes inherit from classes</p><br>
+              <h3>
+              <li class="fragment" data-fragment-index="3"><span class="-highlight">Prototypal</span> (JavaScript, Lua)</li>
+              </h3>
+              <p class="fragment" data-fragment-index="5">- objects inherit from objects</p>
+            </ul>
+          </section>
+<!-- 4.2 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">Inheritance</span></h2>
+            <ul>
+              <li class="fragment" data-fragment-index="0"><span class="-highlight">Crockford</span> version</li>
+              <li class="fragment" data-fragment-index="1"><span class="-highlight">ES5</span> version</li>
+              <li class="fragment" data-fragment-index="2"><span class="-highlight">ES6</span> version</li>
+            </ul>
+          </section>
+<!-- 4.3 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">Inheritance</span></h2>
+            <p><span class="-highlight">Crockford</span> version</p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs php">
+<span class="hljs-keyword">function</span> <span class="hljs-title">extend</span>(Child, Parent) {
+  <span class="hljs-keyword">var</span> F = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{ };
+  F.prototype = Parent.prototype;
+  Child.prototype = <span class="hljs-keyword">new</span> F();
+  Child.prototype.constructor = Child;
+  Child.superclass = Parent.prototype;
+}
+            </code></pre>
+          </section>
+<!-- 4.4 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">Inheritance</span></h2>
+            <p><span class="-highlight">ES5</span> version</p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs elm">
+<span class="hljs-keyword">function</span><span class="hljs-title"> extend</span>(Child, Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+  Child.superclass = Parent.prototype;
+}
+            </code></pre>
+          </section>
+<!-- 4.5 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <h2><span class="-highlight">Inheritance</span></h2>
+            <p><span class="-highlight">ES6</span> version</p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs scala">
+<span class="hljs-keyword">class</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>() {
+
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>();
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>();
+<span class="hljs-built_in">console</span>.log(iphoneX <span class="hljs-keyword">instanceof</span> <span class="hljs-title">Iphone</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(iphoneX <span class="hljs-keyword">instanceof</span> <span class="hljs-title">IphoneX</span>); <span class="hljs-comment">// true</span>
+            </code></pre>
+          </section>
+<!-- 4.6 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <p><span class="-highlight">Inheritance ES6</span></p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs scala">
+<span class="hljs-keyword">class</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+
+}
+            </code></pre>
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>(<span class="hljs-string">'Apple'</span>);
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>(<span class="hljs-string">'Andrew'</span>);
+<span class="hljs-built_in">console</span>.log(iphone.owner); <span class="hljs-comment">// Apple</span>
+<span class="hljs-built_in">console</span>.log(iphoneX.owner); <span class="hljs-comment">// Andrew</span>
+            </code></pre>
+          </section>
+<!-- 4.7 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <p><span class="-highlight">Inheritance ES6</span></p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs scala">
+<span class="hljs-keyword">class</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+
+  siriSay() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Siri: "'</span> + message + <span class="hljs-string">', '</span> + <span class="hljs-keyword">this</span>.owner + <span class="hljs-string">'!"'</span>);
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>(<span class="hljs-string">'Andrew'</span>);
+iphoneX.siriSay(<span class="hljs-string">'Hello'</span>); <span class="hljs-comment">// Siri: "Hello, Andrew!"</span>
+            </code></pre>
+          </section>
+<!-- 4.8 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <p><span class="-highlight">Inheritance ES6</span></p>
+            <pre class="fragment" data-fragment-index="0"><code class="hljs scala">
+<span class="hljs-keyword">class</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>(owner) {
+    <span class="hljs-keyword">super</span>(owner);
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphone = <span class="hljs-keyword">new</span> <span class="hljs-title">Iphone</span>(<span class="hljs-string">'Apple'</span>);
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>(<span class="hljs-string">'Andrew'</span>);
+<span class="hljs-built_in">console</span>.log(iphone.owner); <span class="hljs-comment">// Apple</span>
+<span class="hljs-built_in">console</span>.log(iphoneX.owner); <span class="hljs-comment">// Andrew</span>
+            </code></pre>
+          </section>
+<!-- 4.9 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <pre class="fragment" data-fragment-index="0"><code class="hljs javascript">
+<span class="hljs-keyword">class </span><span class="hljs-title">Iphone </span>{
+  <span class="hljs-keyword">constructor </span>(owner = Iphone.getDefaultOwner()) {
+    <span class="hljs-keyword">this</span>.owner = owner;
+}
+
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-title">getDefaultOwner</span>() </span>{
+    <span class="hljs-keyword">return </span><span class="hljs-string">'Apple'</span>;
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+  }
+}
+            </code></pre>
+            <pre class="fragment" data-fragment-index="1"><code class="hljs php">
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>();
+iphoneX.owner <span class="hljs-comment">// Apple</span>
+iphoneX.getDefaultOwner() <span class="hljs-comment">// TypeError</span>
+            </code></pre>
+          </section>
+<!-- 4.10 -->
+          <section class="future" aria-hidden="true" style="top: 350px; display: none;">
+            <pre class="fragment" data-fragment-index="0"><code class="hljs scala">
+<span class="hljs-keyword">class</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.assembledIn = <span class="hljs-string">'USA'</span>;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">set</span> <span class="hljs-title">newAssembledIn</span>(value) </span>{
+    <span class="hljs-keyword">this</span>.assembledIn = value;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">get</span> <span class="hljs-title">aboutPhone</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return </span><span class="hljs-string">`Assembled in </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.assembledIn}</span><span class="hljs-string">.`</span>;
+  }
+}
+<span class="hljs-keyword">class</span> <span class="hljs-title">IphoneX</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Iphone</span> {
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+  }
+}
+
+<span class="hljs-keyword">let</span> iphoneX = <span class="hljs-keyword">new</span> <span class="hljs-title">IphoneX</span>(<span class="hljs-string">'USA'</span>);
+iphoneX.aboutPhone <span class="hljs-comment">// Assembled in USA.</span>
+iphoneX.newAssembledIn = <span class="hljs-string">'China'</span>;
+iphoneX.aboutPhone <span class="hljs-comment">// Assembled in China.</span>
+            </code></pre>
+          </section>
+        </section>
+<!-- 5 -->
+        <section hidden="" aria-hidden="true" class="future" style="top: 350px; display: none;">
+            <h2>Thanks</h2>
+        </section>
+      </div>
+    </div>
+    
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/search/search.js', async: true },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
